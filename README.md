@@ -102,7 +102,7 @@ Notre vaisseau doit suivre un chemin. Pour ce faire, on définie les variables x
 
     - La coordonnée du centre de l'écran pour x
     
-    - La bordure basse pour y. Soit : y = 0
+    - La bordure haute pour y. Soit : y = 0
 
 Voici une manière de procéder : 
 
