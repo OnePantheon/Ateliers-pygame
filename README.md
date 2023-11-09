@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 L'objectif de ce TP est de créer un jeu d'ésquive en utilisant le module Pygame. Le jeu doit être composé d'un vaisseau qui peut se déplacer sur l'écran et qui doit rester le plus longtemps possible sur un chemin. Ce chemin est composé de cases qui se déplacent de haut en bas de l'écran. Si le vaisseau sort du chemin, le joueur perd la partie.
 
-> **Note** : Une proposition de solution est disponible dans le dossier `solution`.
+> **Note** : Une proposition de solution est disponible dans le dossier `Solution`.
 
 ## Étapes
 
