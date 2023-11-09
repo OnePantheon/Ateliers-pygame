@@ -94,9 +94,9 @@ def updatePath(): # Déplacement du chemin, on ajoute une ligne au début et on 
     score += 1
     # Décalage vers le bas
     for cell in path:
-        cell[1] += cell_size
         if cell[1] >= screen.get_height(): # Suppression de la dernière ligne
             path.remove(cell)
+        cell[1] += cell_size
     # Ajout d'une ligne au début
     # Check le chemin actuel pour savoir si on peut décaler vers la gauche ou la droite
     if path[0][0] <= 0:
