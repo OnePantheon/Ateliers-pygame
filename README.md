@@ -72,7 +72,7 @@ pygame.quit()
 ### Étape 2 : Création du vaisseau
 
 Il est temps de créer le vaisseau. Nous voulons ici une entitée de 3 "cellules" de long.
-Pour cette étape, on créera une fonction player.
+Pour cette étape, on créera une classe player.
 
 ```python
 cell_size = 16
@@ -140,7 +140,7 @@ def updatePath(): # Moving the path, we add a line at the beginning and advance 
         path.insert(i+1,[new_line[0] + ((1+i) * cell_size), 0])
 ```
 
-Dans la boucle, penssez bien a implémenter l'update via la condition if :
+Dans la boucle, pensez bien a implémenter l'update via la condition if :
 
 ```python
 if current_time - last_update_time >= update_interval:
@@ -149,7 +149,7 @@ if current_time - last_update_time >= update_interval:
         update_interval = update_interval * 0.99
 ```
 
-On a également besoin du temps écouler (Plutôt utile pour l'update)
+On a également besoin du temps écoulé (Plutôt utile pour l'update)
 
 ```python
 clock = pygame.time.Clock()
@@ -161,7 +161,7 @@ last_update_time = pygame.time.get_ticks() #Tout début
 current_time = pygame.time.get_ticks()#Avant  l'update
 ```
 
-Il est désormait temps de donner vie a notre chemin. Pour cela, utiliser la commande "pygame.draw.rect()" avec en paramètre :la résolution de l'écran, la couleur souhaiter (penssez bien a la definir), les coordonée des cellules qui sont : 
+Il est désormais temps de donner vie a notre chemin. Pour cela, utiliser la commande "pygame.draw.rect()" avec en paramètre :la résolution de l'écran, la couleur souhaiter (penssez bien a la definir), les coordonnées des cellules qui sont : 
 
 ```bash
 (cell[0], cell[1], cell_size, cell_size), 1
@@ -169,7 +169,7 @@ Il est désormait temps de donner vie a notre chemin. Pour cela, utiliser la com
 
 ### Étape 5 : Les touches
 
-Maintenant, il est temps de rentrer dans le while. Vous serez d'accord avec moi pour dire que sans touche appliqué ça va être complexe de jouer. 
+Maintenant, il est temps de rentrer dans le while. Vous serez d'accord avec moi pour dire que sans input ça va être complexe de jouer. 
 
 Le principe est simple : 
 
@@ -207,7 +207,7 @@ Voici un exemple de manière de procéder :
 
 ### Étape 6 : Gestion des collisions
 
-On va créer les collisions nécéssaire au jeux.
+On va créer les collisions nécéssaire au jeu.
 
 Pour faire ça, c'est assez simple. On récupère les coordonées de chaque cellule du chemin. Avec ça, on s'assure que le vaisseau reste dessus. 
 
@@ -250,4 +250,4 @@ Pour que ça marche, il nous faut l'image du joueurs ( définie dans la classe p
 screen.blit(player.image, player.rect)
 ```
 
-> Penssez bien à garder la mise a jour le display 
+> Pensez bien à garder la mise a jour le display 
