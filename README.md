@@ -71,7 +71,7 @@ pygame.quit()
 
 ### Étape 2 : Création du vaisseau
 
-Il est temps de créer le vaisseau. Nous voulons ici une entitée de 3 "cellule" de long.
+Il est temps de créer le vaisseau. Nous voulons ici une entitée de 3 "cellules" de long.
 Pour cette étape, on créera une fonction player.
 
 ```python
