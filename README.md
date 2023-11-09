@@ -238,22 +238,16 @@ On utilisera des min et des max. Du grand clasique !
 
 ### Étape 7 : Affichage
 
-Donnons vie au joueurs. Oui que maintenant. Où est le problème ;) . 
+Donnons vie au joueur. Oui que maintenant. Où est le problème ;) . 
 
 Pour ce faire on utilisera le .blit. 
 
 Si vous avez bien suivi, vous savez alors que l'on utilisera screen.blit().
 
-Pour que ça marche, il nous faut l'image du joueurs ( définie dans la classe player) et son rect (mêm chôse). 
+Pour que ça marche, il nous faut l'image du joueurs ( définie dans la classe player) et son rect (même chôse). 
 
 ```python
 screen.blit(player.image, player.rect)
 ```
 
-> Penssez bien à mêtre a jour le display 
-
-```python
-pygame.display.update()
-```
-
-
+> Penssez bien à garder la mise a jour le display 
