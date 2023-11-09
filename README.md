@@ -64,4 +64,38 @@ pygame.quit()
 
 ### Étape 2 : Création du vaisseau
 
+Pour cette étape, nous allons créer la classe `Ship` qui représente le vaisseau.
+Pour cela vous devez définir **une taille pour une cellule** afin de quadriller l'écran, nous utiliserons cette mesure pour définir la taille du vaisseau.
+
+Cette classe doit contenir les attributs suivants :
+- `image` : qui représente le rectangle du vaisseau avec _pygame.Surface_
+- `rect` : qui représente la position du vaisseau sur l'écran
+- `velocity` : qui représente la vitesse de déplacement du vaisseau avec une liste de deux valeurs [x, y]
+
+Il faudra aussi une fonction `update` qui permet de mettre à jour la position du vaisseau en fonction de la vitesse de déplacement.
+
+Voici le squelette de la classe `Ship` :
+
+```python
+class Ship:
+    def __init__(self, x, y, cell_size):
+        # set image
+        self.image = pygame.Surface(# ...
+        self.image.fill(# ...
+        self.rect = self.image.get_rect(#...
+        self.velocity = # ...
+
+    def update(self):
+        self.rect.move_ip(*self.velocity)
+        # ...
+```
+
+> **Note** : Vous pouvez créer des variables globales pour la taille des cellules ainsi que les couleurs du jeu (`BLACK = (0, 0, 0)`).
+
+N'oublier pas de créer une instance de la classe `Ship`.
+
+### Étape 3 : Création du chemin
+
+
+
 
