@@ -29,7 +29,6 @@ La première étape consiste à créer le main Pygame. Pour cela, il faut créer
 ```python
 # import module pygame
 import pygame
-import random
 
 # initialise pygame
 pygame.init()
@@ -100,8 +99,12 @@ N'oublez surtout pas d'assigner le joueur une variable !
 ### Étape 3 : Création du chemin
 
 Notre vaisseau doit suivre un chemin. Pour ce faire, on définie les variables x et y pour avoir: 
-    . La coordonnée du centre de l'écran pour x
-    . La bordure basse pour y. Soit : y = 0
+
+    - La coordonnée du centre de l'écran pour x
+    
+    - La bordure basse pour y. Soit : y = 0
+
+Voici une manière de procéder : 
 
 ```python
 path = []
@@ -115,11 +118,11 @@ while y < screen.get_height():
         y += cell_size
 ```
 
-### Étape 4 : Mise a jour du chemin
+### Étape 4 : Mise a jour du chemin et affichage
 
 Pour le moment, vous devriez avoir une fenêtre noir avec un chemin. Maintenant, il est temps de lui donner vie. 
 
-On utilisera random pour cela (importer en début de template).
+On utilisera random pour cela (n'oubliez pas de l'importer).
 
 ```python
 def updatePath(): # Moving the path, we add a line at the beginning and advance the following lines down, removing the last one
@@ -137,6 +140,120 @@ def updatePath(): # Moving the path, we add a line at the beginning and advance 
         path.insert(i+1,[new_line[0] + ((1+i) * cell_size), 0])
 ```
 
-### Étape 5 : Gestion des collisions
+Dans la boucle, penssez bien a implémenter l'update via la condition if :
 
-Maintenant, il est temps de rentrer dans le while. 
+```python
+if current_time - last_update_time >= update_interval:
+        updatePath()
+        last_update_time = current_time
+        update_interval = update_interval * 0.99
+```
+
+On a également besoin du temps écouler (Plutôt utile pour l'update)
+
+```python
+clock = pygame.time.Clock()
+
+#Dans la boucle
+
+last_update_time = pygame.time.get_ticks() #Tout début
+
+current_time = pygame.time.get_ticks()#Avant  l'update
+```
+
+Il est désormait temps de donner vie a notre chemin. Pour cela, utiliser la commande "pygame.draw.rect()" avec en paramètre :la résolution de l'écran, la couleur souhaiter (penssez bien a la definir), les coordonée des cellules qui sont : 
+
+```bash
+(cell[0], cell[1], cell_size, cell_size), 1
+```
+
+### Étape 5 : Les touches
+
+Maintenant, il est temps de rentrer dans le while. Vous serez d'accord avec moi pour dire que sans touche appliqué ça va être complexe de jouer. 
+
+Le principe est simple : 
+
+On veut définir ce que fais chaque touche. On va prendre les flèches directionnels et le classique z q s d .
+
+Il faut utiliser le module pygame.event.get() dans une boucle for. 
+
+La template général est basique. Soit : 
+
+    - Une condition if
+    
+    - utiliser la variable définie dans la boucle for
+    
+    - Utiliser, pygame.touche presser
+    
+    - Modification de la vélocité du joueur par player.velocity[1 ou 0] = Une cellule ou moins 1 cellule.
+
+Voici un exemple de manière de procéder : 
+
+```python
+    for event in pygame.event.get(): 
+        if event.type == pygame.QUIT:
+            running = False 
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_z or event.key == pygame.K_UP:
+                player.velocity[1] = -cell_size
+            elif event.key == pygame.K_s or event.key == pygame.K_DOWN:
+                player.velocity[1] = cell_size
+            elif event.key == pygame.K_q or event.key == pygame.K_LEFT:
+                player.velocity[0] = -cell_size
+            elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
+                player.velocity[0] = cell_size
+
+```
+
+### Étape 6 : Gestion des collisions
+
+On va créer les collisions nécéssaire au jeux.
+
+Pour faire ça, c'est assez simple. On récupère les coordonées de chaque cellule du chemin. Avec ça, on s'assure que le vaisseau reste dessus. 
+
+```python
+collision = 0
+    for cell in path:
+        if player.rect.colliderect(pygame.Rect(cell[0], cell[1], cell_size, cell_size)):
+            collision += 1
+
+    
+    if collision <3 :
+        print("You hit the wall !!")
+        run = False
+```
+
+Maintenant, on va faire en sorte que le joueur ne puisse pas sortir de l'écran : 
+
+On utilisera des min et des max. Du grand clasique !
+
+```python
+    player.rect.left = max(0, player.rect.left)
+    player.rect.right = min(screen.get_width(), player.rect.right)
+    player.rect.top = max(0, player.rect.top)
+    player.rect.bottom = min(screen.get_height(), player.rect.bottom)
+
+    player.update() 
+```
+
+### Étape 7 : Affichage
+
+Donnos vie au joueurs. Oui que maintenant. Ou est le problème ;) . 
+
+Pour ce faire on utilisera le .blit. 
+
+Si vous avez bien suivi, vous savez alors que l'on utilisera screen.blit().
+
+Pour que ça marche, il nous faut l'image du joueurs ( définie dans la classe player) et son rect (mêm chôse). 
+
+```python
+screen.blit(player.image, player.rect)
+```
+
+> Penssez bien à mêtre a jour le display 
+
+```python
+pygame.display.update()
+```
+
+
