@@ -238,7 +238,7 @@ On utilisera des min et des max. Du grand clasique !
 
 ### Étape 7 : Affichage
 
-Donnos vie au joueurs. Oui que maintenant. Ou est le problème ;) . 
+Donnons vie au joueurs. Oui que maintenant. Où est le problème ;) . 
 
 Pour ce faire on utilisera le .blit. 
 
