@@ -49,13 +49,13 @@ GREY = (128, 128, 128)
 WHITE = (255, 255, 255)
 
 cell_size = 16
-fly_size = 3 * cell_size
+fly_size = 3
 path_size = 7
 score = 0
 path = []
 
-if path_size < fly_size/cell_size:
-    print("Error: path_size must be greater than fly_size/cell_size")
+if path_size < fly_size:
+    print("Error: path_size must be greater than fly_size")
     exit()
 
 # Création du chemin
@@ -73,7 +73,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         # Donne une forme T-shape renversé au joueur
-        self.image = pygame.Surface((fly_size, cell_size))
+        self.image = pygame.Surface((fly_size * cell_size, cell_size))
         self.image.fill(WHITE)
         # on place le joueur au milieu de l'écran en bas
         # on soustrait cell_size/2 pour que le joueur soit centré lorsque path_size est impair sinon on soustrait cell_size
@@ -101,7 +101,7 @@ def updatePath(): # Déplacement du chemin, on ajoute une ligne au début et on 
     # Check le chemin actuel pour savoir si on peut décaler vers la gauche ou la droite
     if path[0][0] <= 0:
         x = random.randint(0,1)
-    elif path[0][0] >= screen.get_width() - (fly_size):
+    elif path[0][0] >= screen.get_width() - (fly_size * cell_size):
         x = random.randint(-1,0)
     else:
         x = random.randint(-1,1)
@@ -176,7 +176,7 @@ while running:
             #print (collision) DEBUG
 
     
-    if collision < fly_size/cell_size :
+    if collision < fly_size:
         print("You hit the wall !!")
         running = False
  
