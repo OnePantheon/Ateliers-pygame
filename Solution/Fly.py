@@ -49,16 +49,22 @@ GREY = (128, 128, 128)
 WHITE = (255, 255, 255)
 
 cell_size = 16
+fly_size = 3 * cell_size
+path_size = 7
 score = 0
 path = []
 
+if path_size < fly_size/cell_size:
+    print("Error: path_size must be greater than fly_size/cell_size")
+    exit()
+
 # Création du chemin
-x, y = (screen.get_width() / 2) - (cell_size * 3.5), 0
+x, y = (screen.get_width() / 2) - (cell_size * path_size/2), 0
 while y < screen.get_height():
     path.append([int(x), y])
     x += cell_size
-    if x >= (screen.get_width() / 2) + (cell_size * 3.5):
-        x = (screen.get_width() / 2) - (cell_size * 3.5)
+    if x >= (screen.get_width() / 2) + (cell_size * path_size/2):
+        x = (screen.get_width() / 2) - (cell_size * path_size/2)
         y += cell_size
 #print(path) DEBUG
 
@@ -67,10 +73,12 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         # Donne une forme T-shape renversé au joueur
-        self.image = pygame.Surface((cell_size * 3, cell_size))
+        self.image = pygame.Surface((fly_size, cell_size))
         self.image.fill(WHITE)
         # on place le joueur au milieu de l'écran en bas
-        self.rect = self.image.get_rect(center=(screen.get_width() / 2, screen.get_height() - cell_size/2))
+        # on soustrait cell_size/2 pour que le joueur soit centré lorsque path_size est impair sinon on soustrait cell_size
+        self.rect = self.image.get_rect(center=((screen.get_width() / 2) - (1+path_size)%2 * (cell_size/2), screen.get_height() - (cell_size/2)))
+        #self.rect = self.image.get_rect(center=(screen.get_width() / 2, screen.get_height() - (cell_size/2)))
         self.velocity = [0, 0]
 
     def update(self):
@@ -90,11 +98,17 @@ def updatePath(): # Déplacement du chemin, on ajoute une ligne au début et on 
         if cell[1] >= screen.get_height(): # Suppression de la dernière ligne
             path.remove(cell)
     # Ajout d'une ligne au début
-    x = random.randint(-1,1)
+    # Check le chemin actuel pour savoir si on peut décaler vers la gauche ou la droite
+    if path[0][0] <= 0:
+        x = random.randint(0,1)
+    elif path[0][0] >= screen.get_width() - (fly_size):
+        x = random.randint(-1,0)
+    else:
+        x = random.randint(-1,1)
     new_line = [path[0][0] + (x * cell_size), 0]
     path.insert(0, new_line)
-    for i in range(6):
-        path.insert(i+1,[new_line[0] + ((1+i) * cell_size), 0])        
+    for i in range(path_size-1):
+        path.insert(i+1,[new_line[0] + ((1+i) * cell_size), 0])
 
 
 ### Boucle principale
@@ -162,7 +176,7 @@ while running:
             #print (collision) DEBUG
 
     
-    if collision <3 :
+    if collision < fly_size/cell_size :
         print("You hit the wall !!")
         running = False
  
