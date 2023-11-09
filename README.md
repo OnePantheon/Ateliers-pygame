@@ -1,1 +1,67 @@
 # Seance-Python-Pygame
+
+## Introduction
+
+Ce projet est un sujet de TP pour le cours de Python en Pygame. Il est destiné aux étudiants débutants en Python et en programmation orientée objet.
+
+## Prérequis
+
+Pour pouvoir utiliser ce projet, il faut avoir installé Python 3.7 ou supérieur. Il faut également utiliser Pip pour installer les dépendances en utilisant la commande suivante :
+
+```bash
+pip install -r requirements.txt
+```
+
+## Objectif
+
+L'objectif de ce TP est de créer un jeu d'ésquive en utilisant le module Pygame. Le jeu doit être composé d'un vaisseau qui peut se déplacer sur l'écran et qui doit rester le plus longtemps possible sur un chemin. Ce chemin est composé de cases qui se déplacent de haut en bas de l'écran. Si le vaisseau sort du chemin, le joueur perd la partie.
+
+> **Note** : Une proposition de solution est disponible dans le dossier `solution`.
+
+## Étapes
+
+### Étape 1 : Création du template Pygame
+
+Pour cette étape, nous nous baserons sur le tutoriel suivant : [Getting started with Pygame](https://riptutorial.com/pygame).
+
+La première étape consiste à créer le main Pygame. Pour cela, il faut créer un fichier `main.py`, voici le template de base :
+
+```python
+# import module pygame
+import pygame
+
+# initialise pygame
+pygame.init()
+
+# set game clock
+clock = pygame.time.Clock()
+FPS = 30
+
+# screen dimensions
+screen_width = 900
+screen_height = 600
+
+# set screen
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption('Pygame')
+
+# run the main loop
+run = True
+while run:
+    
+    # if we click on the quit button
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+
+    # refresh the screen
+    clock.tick(FPS)
+    pygame.display.update()
+
+# quit pygame
+pygame.quit()
+```
+
+### Étape 2 : Création du vaisseau
+
+
